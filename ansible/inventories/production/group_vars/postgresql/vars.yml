@@ -35,13 +35,13 @@ postgresql_user_privileges:
     db: "{{ tallyho_pgsql_db }}"
     priv: "ALL"
     role_attr_flags: "SUPERUSER"
-postgresql_ssl_ca_key: "{{ lookup('file', 'ansible/inventories/production/files/ssl/key.pem') }}"
-postgresql_ssl_ca_cert: "{{ lookup('file', 'ansible/inventories/production/files/ssl/certificate.pem') }}"
+postgresql_ssl_ca_key: "{{ lookup('file', 'inventories/production/files/ssl/key.pem') }}"
+postgresql_ssl_ca_cert: "{{ lookup('file', 'inventories/production/files/ssl/certificate.pem') }}"
 postgresql_ssl_domain: "example.org"
 
 # Backup
 tallyho_backup_gpg_pass: "secret"
-backup_gpg_path: "ansible/inventories/production/files/gpg"
+backup_gpg_path: "inventories/production/files/gpg"
 backup_gpg_key_id: B66789D5
 backup_gpg_pass: "{{ tallyho_backup_gpg_pass }}"
 
