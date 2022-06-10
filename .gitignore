@@ -1,2 +1,3 @@
 */.vagrant/
 vagrant/hosts/bastion.rb
+*.log
