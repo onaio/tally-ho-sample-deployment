@@ -5,6 +5,8 @@ ansible_python_interpreter: "/usr/bin/env python3"
 server_monitoring_install_logstash: false
 server_monitoring_set_hostname: false
 server_monitoring_install_collectd: false
+collectd_version: "5.*"
+install_collectd: "{{ server_monitoring_install_collectd }}"
 server_monitoring_enable_fluentd: false
 server_monitoring_enable_cwa: false
 server_monitoring_install_sre_tooling: false
@@ -18,7 +20,6 @@ server_monitoring_hostname_from_ec2_Name_tag: false
 
 # monit settings
 slack_monit_endpoint: ""
-collectd_version: "5.7.*"
 monit_version: "1:5.*"
 
 # slack notifications

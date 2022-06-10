@@ -10,7 +10,7 @@ set_hostname: false
 server_monitoring_monit_scripts: ["monit", "system", "openssh-server"]
 monit_opsgenie_api_key: "{{ server_monitoring_opsgenie_api_key }}"
 
-install_collectd: true
+install_collectd: false
 collectd_scripts_initial:
   - "graphite"
   - "cpu"
