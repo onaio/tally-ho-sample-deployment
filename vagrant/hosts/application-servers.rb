@@ -1,7 +1,7 @@
 Vagrant.configure("2") do |config|
     config.vm.define "app1" do |app1|
       app1.vm.provider :virtualbox do |vb|
-        vb.name = "tally-ho-app1"
+        vb.name = "tally-ho-app-server-1"
         vb.memory = 2048
         vb.cpus = 1
       end
@@ -10,7 +10,7 @@ Vagrant.configure("2") do |config|
     end
     config.vm.define "app2" do |app2|
           app2.vm.provider :virtualbox do |vb|
-            vb.name = "tally-ho-app2"
+            vb.name = "tally-ho-app-server-2"
             vb.memory = 2048
             vb.cpus = 1
           end
