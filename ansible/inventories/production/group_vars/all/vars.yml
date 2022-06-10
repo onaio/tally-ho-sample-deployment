@@ -10,6 +10,7 @@ install_collectd: "{{ server_monitoring_install_collectd }}"
 server_monitoring_enable_fluentd: false
 server_monitoring_enable_cwa: false
 server_monitoring_install_sre_tooling: false
+server_monitoring_opsgenie_api_key: ""
 
 server_monitoring_graphite_server_ip: ""
 server_monitoring_graphite_server_port: 2003

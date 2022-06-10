@@ -126,3 +126,6 @@ roles:
   - src: https://github.com/onaio/ansible-postgresql.git
     name: postgresql
     scm: git
+  - src: https://github.com/onaio/ansible-tally-ho.git
+    name: tally-ho
+    scm: git
