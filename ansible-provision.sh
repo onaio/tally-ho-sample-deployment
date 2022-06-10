@@ -16,6 +16,9 @@ fi
 # Install ansible-galaxy requirements
 ansible-galaxy install -r ansible/dependencies/requirements.yml
 
+# Run the initial setup playbook
+ansible-playbook -i ansible/inventories/production ansible/initial-setup.yml
+
 # Run the postgresql playbook
 ansible-playbook -i ansible/inventories/production ansible/postgresql.yml
 

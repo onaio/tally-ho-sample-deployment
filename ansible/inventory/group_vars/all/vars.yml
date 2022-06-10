@@ -13,6 +13,7 @@ tallyho_postgresql_password: "Change-me-vault-me" #use ansible vault to encrypt 
 slack_monit_endpoint: ""
 server_monitoring_opsgenie_api_key: ""
 
+# These are sample ssl certificates. Please replace these with your own.
 tallyho_postgresql_ssl_ca_key: |
   -----BEGIN RSA PRIVATE KEY-----
   MIIEogIBAAKCAQEAuBSrKWuNDR8q77YbYmowciYhZbWsvB7OyxII3Z6lLk5YVYaG
