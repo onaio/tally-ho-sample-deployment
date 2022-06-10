@@ -1,0 +1,2 @@
+---
+ansible_host: "{{ tallyho_app_server_addresses[0] }}"

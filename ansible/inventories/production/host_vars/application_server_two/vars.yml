@@ -1,0 +1,4 @@
+---
+# Ansible connection
+ansible_host: "{{ application_server_two_private_ip }}"
+deployed_site_name: "{{ application_server_two_private_ip }}"

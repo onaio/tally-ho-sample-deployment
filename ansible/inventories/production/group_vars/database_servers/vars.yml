@@ -1,0 +1,11 @@
+# UFW
+ufw_slack_deployed_domain: "{{ ansible_host }}"
+ufw_rules:
+  - port: 22
+    rule: "allow"
+    from_ip: any
+    comment: "Allow SSH"
+  - port: 5432
+    rule: "allow"
+    from_ip: "{{ tally_ho_private_subnet_cidr }}"
+    comment: "Allow Postgres traffic from local subnet"

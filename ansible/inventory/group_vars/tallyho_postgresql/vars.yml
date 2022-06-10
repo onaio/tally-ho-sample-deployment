@@ -1,0 +1,10 @@
+---
+tallyho_postgresql_ssl_domain: "example.org"
+
+
+tallyho_backup_gpg_key_id: "B66789D5"
+lb_backup_gpg_directory: "{{ inventory_dir }}/files/gpg"
+tallyho_backup_gpg_private_key: "{{ lb_backup_gpg_directory }}/{{ tallyho_backup_gpg_key_id }}-priv.key"
+tallyho_backup_gpg_public_key: "{{ lb_backup_gpg_directory }}/{{ tallyho_backup_gpg_key_id }}-pub.key"
+tallyho_backup_gpg_trust_file: "{{ lb_backup_gpg_directory }}/{{ tallyho_backup_gpg_key_id }}-ultimate.trust"
+tallyho_backup_gpg_pass: "secret"

@@ -1,0 +1,3 @@
+---
+# Ansible connection
+ansible_host: "{{ database_server_private_ip }}"

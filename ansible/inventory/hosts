@@ -1,0 +1,7 @@
+[postgresql]
+database_host
+
+[tally_ho]
+tallyho_host_1
+tallyho_host_2
+

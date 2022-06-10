@@ -1,0 +1,17 @@
+---
+- hosts: postgresql
+  gather_facts: true
+  become: true
+  vars:
+    slack_deployed_app_name: postgresql
+    slack_deployed_app_version: "{{ postgresql_version }}"
+    slack_deployed_domain: "{{ inventory_hostname }}"
+    postgresql_monit_scripts: ['postgres']
+  pre_tasks:
+    - include_tasks: tasks/slack-start.yml
+      when: slack_notifications|bool
+  roles:
+    - role: postgresql
+  post_tasks:
+    - include_tasks: tasks/slack-end.yml
+      when: slack_notifications|bool

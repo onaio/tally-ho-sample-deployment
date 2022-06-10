@@ -1,0 +1,52 @@
+---
+- hosts: tally-ho, tally_ho
+  gather_facts: true
+  become: true
+  roles:
+    - name: "Install tally-ho"
+      role: tally-ho
+      tags:
+        - tally-ho
+
+    - role: certbot
+      vars:
+        site_name: "{{ tally_ho_certbot_site_names[0] }}"
+        certbot_create_certs: "{{ tally_ho_certbot_create_certs }}"
+        certbot_mail_address: "{{ tally_ho_certbot_mail_address }}"
+        certbot_renew_certs: "{{ tally_ho_certbot_renew_certs }}"
+        certbot_install_cert: false
+        certbot_webserver_installed: "nginx"
+        certbot_site_names: "{{ tally_ho_certbot_site_names }}"
+        certbot_package: "python-certbot-nginx"
+      tags:
+        - install
+        - SSL
+        - certbot
+      when:
+        - tally_ho_use_certbot|bool|default(false)
+
+    - role: nginx
+      become: true
+      become_user: "root"
+      vars:
+        nginx_access_logs: "{{ tally_ho_nginx_access_logs }}"
+        nginx_sites: "{{ tally_ho_nginx_sites }}"
+        nginx_ssl_dir: "{{ tally_ho_nginx_ssl_dir }}"
+        nginx_install_method: "package"
+        nginx_enabled_sites: "{{ tally_ho_nginx_enabled_sites }}"
+        nginx_default_enable: false
+        nginx_log_dir: "{{ tally_ho_nginx_log_path }}"
+        nginx_large_client_header_buffers: "{{ tally_ho_nginx_large_client_header_buffers }}"
+        nginx_first_start: "{{ tally_ho_nginx_first_start }}"
+        apt_default_packages:
+          - python-apt
+          - unattended-upgrades
+          - apt-transport-https
+          - curl
+          - ca-certificates
+          - software-properties-common
+          - python3-passlib
+      tags:
+        - nginx
+      when:
+        - tally_ho_use_nginx|bool|default(false)

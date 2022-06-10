@@ -1,0 +1,87 @@
+ansible_ssh_user: "ubuntu"
+
+tally_ho_django_system_user: "tallyho"
+
+
+# nginx
+tally_ho_nginx_password: "HTTPSecret-please-change-me"
+tally_ho_nginx_access_logs:
+  - name: "timed_combined"
+    format: '''$http_x_forwarded_for - $remote_user [$time_local]  "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent" $request_time $upstream_response_time $gzip_ratio $request_length'''
+    options: null
+    filename: "access.log"
+tally_ho_use_nginx: True
+tally_ho_nginx_first_start: true
+tally_ho_nginx_site_names:
+  - "{{ deployed_site_name }}"
+tally_ho_nginx_site_name: "{{ tally_ho_nginx_site_names[0] }}"
+tally_ho_nginx_http_site_name: "{{ deployed_site_name }}-http"
+
+tally_ho_nginx_enabled_sites:
+ - "{{ tally_ho_nginx_http_site_name }}"
+tally_ho_nginx_client_max_body_size: "100M"
+tally_ho_nginx_ssl_dir: "/etc/nginx/ssl/{{ deployed_site_name }}"
+tally_ho_nginx_log_path: "/var/log/nginx"
+tally_ho_nginx_large_client_header_buffers: "4 8k"
+nginx_basic_auth_files:
+  - path: "/etc/nginx/.htpasswd"
+    users:
+      - username: "tallyho"
+        password: "{{ tally_ho_nginx_password }}"
+        state: "present"
+
+tally_ho_nginx_sites:
+  - server:
+      name: "{{ tally_ho_nginx_http_site_name }}"
+      listen:
+      - "80"
+      - "[::]:80"
+      server_name: "{{ tally_ho_nginx_site_names|join(' ') }}"
+      access_log: "/var/log/nginx/{{ deployed_site_name }}-access.log timed_combined"
+      error_log: "/var/log/nginx/{{ deployed_site_name }}-error.log"
+      ssl:
+        enabled: False
+      location1:
+        name: "/"
+        client_max_body_size: "{{ tally_ho_nginx_client_max_body_size }}"
+        # uwsgi backend
+        uwsgi_pass: "unix:{{ tally_ho_django_wsgi_socket }}"
+        include: "uwsgi_params"
+        proxy_read_timeout: "{{ tally_ho_django_proxy_read_timeout }}"
+        uwsgi_read_timeout: "{{ tally_ho_django_proxy_read_timeout }}"
+        # no redirects
+        proxy_redirect: "off"
+        proxy_set_header:
+          - Host $host
+          - X-Real-IP $remote_addr
+          - X-Forwarded-For $proxy_add_x_forwarded_for
+          - X-Forwarded-Host $server_name
+        # timeouts on unavailable backend(s)
+        proxy_next_upstream: "error timeout invalid_header http_500 http_502 http_503 http_504"
+      location2:
+        name: "/media/"
+        autoindex: "off"
+        expires: "1y"
+        access_log: "off"
+        add_header: "Cache-Control public"
+        alias: "{{ tally_ho_django_media_path }}"
+      location3:
+        name: "/static/"
+        autoindex: "off"
+        expires: "1y"
+        access_log: "off"
+        add_header: "Cache-Control public"
+        alias: "{{ tally_ho_django_static_path }}"
+
+# Certbot
+tally_ho_use_certbot: false
+# postgres
+tally_ho_deploy_postgres: false
+tally_ho_postgres_host: "{{ database_server_private_ip }}"
+tally_ho_postgres_password: "{{ tallyho_pgsql_password }}"
+tally_ho_postgres_db: "{{ tallyho_pgsql_db }}"
+tally_ho_postgres_user: "{{ tallyho_pgsql_user }}"
+
+# application server ip's
+tally_ho_application_server_one: "{{ application_server_one_private_ip }}"
+tally_ho_application_server_two: "{{ application_server_two_private_ip }}"

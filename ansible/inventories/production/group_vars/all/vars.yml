@@ -1,0 +1,52 @@
+---
+ansible_python_interpreter: "/usr/bin/env python3"
+
+# server Monitoring
+server_monitoring_install_logstash: false
+server_monitoring_set_hostname: false
+server_monitoring_install_collectd: false
+server_monitoring_enable_fluentd: false
+server_monitoring_enable_cwa: false
+server_monitoring_install_sre_tooling: false
+
+server_monitoring_graphite_server_ip: ""
+server_monitoring_graphite_server_port: 2003
+server_monitoring_graphite_server_protocol: "tcp"
+server_monitoring_owner: "tally-ho"
+server_monitoring_server_type: "production"
+server_monitoring_hostname_from_ec2_Name_tag: false
+
+# monit settings
+slack_monit_endpoint: ""
+collectd_version: "5.7.*"
+monit_version: "1:5.*"
+
+# slack notifications
+slack_notifications: false
+slack_domain: ""
+slack_token: ""
+slack_channel: ""
+
+# ssh
+ssh_vault_url: "https://vault.onalabs.org"
+ansible_ssh_user: "tallyadmin"
+ssh_vault_trusted_user_ca_keys:
+  - name: "ona-production.pem"
+    src: "ssh/ona/production"
+create_ubuntu_user: true
+ssh_users:
+  ubuntu:
+    authorized_keys:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCrutye61YhulrcfwKfmLHal81zRdayMCAPFq/bF7ez0drE0Pi+8EIUVI6551Mg6yPMSnwP98OaF+jIOaDOwVDjf432+BiHAPDmJlBxMGg8LnHShB4GwTha8MwBEpLntDX3Z5myNvrPoueMjNoRYLKgJgYKHrlwz+JSTDS3yvV/NKRMMfFSXIWbY8Po1RW4RskuxNuZA3Uy1pkn/0lJq8g9jqwIz/1S/PxGQ00kV4zRDVZvThw6BXrK6QaJOijkkvDgS1aTDelwkjcz02hxFtFrhwoCZ32gvklbYxkyE1Bi4yAf70qphVuwZtwcpjHoqLMgUdZ+mA+Dsf5CCN2QPo/ZOUxBwNq4ZRst/YsZ/0nUapB4oJeoebEBnLpR6jIDwDtTwpyUXTkNtONRvog+EUlA/alHznENtY2E/SW32qyxLulYG9CseNWgkAJ6yuEKFPGBlt474W3acNMTO+FtvjVFpMEUUStnwqibCS4xGRpLl0J0McxvrjhR7HpRrl6703k= techops@ona.io"
+
+
+# IP addresses
+tally_ho_private_subnet_cidr: "10.0.0.0/24"
+application_server_one_private_ip: " 10.0.0.3"
+application_server_two_private_ip: "10.0.0.4"
+database_server_private_ip: "10.0.0.5"
+
+# Postgres
+tallyho_pgsql_user: "tallyho"
+tallyho_pgsql_db: "tallyho"
+tallyho_pgsql_password: "DATABASE-PASSWORD-change-me-please"

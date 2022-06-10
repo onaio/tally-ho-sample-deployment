@@ -1,0 +1,70 @@
+---
+# Slack
+postgresql_slack_deployed_domain: "tallyho-{{ ansible_hostname }}"
+
+# PostgreSQL
+postgresql_version: 11
+postgresql_users:
+  - name: "{{ tallyho_pgsql_user }}"
+    pass: "{{ tallyho_pgsql_password }}"
+    encrypted: true
+postgresql_databases:
+  - name: "{{ tallyho_pgsql_db }}"
+    owner: "{{ tallyho_pgsql_user }}"
+    encoding: "UTF-8"
+    hstore: yes
+    gis: yes
+
+postgresql_database_extensions:
+  - db: "{{ tallyho_pgsql_db }}"
+    extensions:
+      - postgis
+postgresql_listen_addresses:
+  - "*"
+postgresql_ext_install_postgis: yes
+postgresql_ext_postgis_version: "2.5"
+postgresql_ext_postgis_deps:
+  - libgeos-c1v5
+  - "postgresql-{{ postgresql_version }}-postgis-{{ postgresql_ext_postgis_version }}"
+  - "postgresql-{{ postgresql_version }}-postgis-{{ postgresql_ext_postgis_version }}-scripts"
+postgresql_pg_hba_trust_hosts:
+  - "{{ application_server_one_private_ip }}"
+  - "{{ application_server_two_private_ip }}"
+postgresql_user_privileges:
+  - name: "{{ tallyho_pgsql_user }}"
+    db: "{{ tallyho_pgsql_db }}"
+    priv: "ALL"
+    role_attr_flags: "SUPERUSER"
+postgresql_ssl_ca_key: "{{ lookup('file', 'files/tally-ho/production/ssl/tallyho-ca.key') }}"
+postgresql_ssl_ca_cert: "{{ lookup('file', 'files/tally-ho/production/ssl/tallyho-ca.crt') }}"
+postgresql_ssl_domain: hnec.ly
+
+# Backup
+tallyho_backup_gpg_pass: "change-me-please"
+backup_gpg_path: "files/tally-ho/production/gpg"
+backup_gpg_key_id: CA07BFF6
+backup_gpg_pass: "{{ tallyho_backup_gpg_pass }}"
+
+postgresql_backup_target_protocol: "file"
+postgresql_backup_target_path: "/backups/postgresql"
+postgresql_backup_target: "{{ postgresql_backup_target_protocol }}://{{ postgresql_backup_target_path }}"
+postgresql_backup_system_user: "postgres"
+postgresql_backup_system_group: "postgres"
+postgresql_backup_database: "{{ tallyho_pgsql_db }}"
+postgresql_backup_gpg_private_key: "{{ backup_gpg_path }}/{{ backup_gpg_key_id }}-priv.key"
+postgresql_backup_gpg_public_key: "{{ backup_gpg_path }}/{{ backup_gpg_key_id }}-pub.key"
+postgresql_backup_gpg_trust_file: "{{ backup_gpg_path }}/{{ backup_gpg_key_id }}.trust"
+postgresql_backup_gpg_key_id: "{{ backup_gpg_key_id }}"
+postgresql_backup_gpg_pass: "{{ backup_gpg_pass }}"
+postgresql_backup_profiles:
+  - name: "{{ postgresql_backup_database }}"
+    schedule: 0 0 * * *
+    source: "postgresql://{{ postgresql_backup_database }}"
+    target: "{{ postgresql_backup_target }}/{{ postgresql_backup_database}}"
+    max_age: "3M"
+    full_max_age: "1W"
+    max_full_backups: 3
+    user: "{{ postgresql_backup_system_user }}"
+    gpg_key: "{{ postgresql_backup_gpg_key_id }}"
+    gpg_pw: "{{ postgresql_backup_gpg_pass }}"
+    gpg_opts: "--pinentry-mode loopback"

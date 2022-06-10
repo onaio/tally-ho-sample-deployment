@@ -1,0 +1,6 @@
+---
+tallyho_domains:
+  - example.com
+tallyho_ssl_cert_directory: "{{ inventory_dir }}/files/ssl"
+tallyho_ssl_cert: "certificate.pem"
+tallyho_ssl_key: "key.pem"
