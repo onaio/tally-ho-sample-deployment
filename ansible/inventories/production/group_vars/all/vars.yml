@@ -40,7 +40,7 @@ ssh_users:
 
 # IP addresses
 tally_ho_private_subnet_cidr: "10.0.0.0/24"
-application_server_one_private_ip: " 10.0.0.3"
+application_server_one_private_ip: "10.0.0.3"
 application_server_two_private_ip: "10.0.0.4"
 database_server_private_ip: "10.0.0.5"
 
