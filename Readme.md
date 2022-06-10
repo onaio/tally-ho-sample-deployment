@@ -16,6 +16,14 @@ Once you have Vagrant installed, make sure you have [Ansible](https://www.ansibl
 
 You can run `./ubuntu-prepare.sh` to install ansible and the required prerequisites on an Ubuntu machine. Otherwise, follow the steps in [ubuntu-prepare.sh](ubuntu-prepare.sh) to install the required prerequisites for your operating system.
 
+After running `./ubuntu-prepare.sh`, you need to run
+
+```
+source ~/.bashrc
+workon ansible
+```
+To use the ansible virtual environment created by `./ubuntu-prepare.sh`.
+
 Once you have all the prerequisites installed, you can run the following commands to create the sample infrastructure.
 
 ```

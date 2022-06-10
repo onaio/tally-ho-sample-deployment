@@ -28,11 +28,9 @@ slack_token: ""
 slack_channel: ""
 
 # ssh
-ssh_vault_url: "https://vault.onalabs.org"
-ansible_ssh_user: "tallyadmin"
-ssh_vault_trusted_user_ca_keys:
-  - name: "ona-production.pem"
-    src: "ssh/ona/production"
+ssh_vault_url: ""
+ansible_ssh_user: "ubuntu"
+
 create_ubuntu_user: true
 ssh_users:
   ubuntu:
