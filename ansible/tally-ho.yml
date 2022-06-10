@@ -8,7 +8,7 @@
       tags:
         - tally-ho
 
-    - role: certbot
+    - role: onaio.certbot
       vars:
         site_name: "{{ tally_ho_certbot_site_names[0] }}"
         certbot_create_certs: "{{ tally_ho_certbot_create_certs }}"
@@ -25,7 +25,7 @@
       when:
         - tally_ho_use_certbot|bool|default(false)
 
-    - role: nginx
+    - role: onaio.nginx
       become: true
       become_user: "root"
       vars:
