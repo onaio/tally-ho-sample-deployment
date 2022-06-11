@@ -28,8 +28,8 @@ postgresql_ext_postgis_deps:
   - "postgresql-{{ postgresql_version }}-postgis-{{ postgresql_ext_postgis_version }}"
   - "postgresql-{{ postgresql_version }}-postgis-{{ postgresql_ext_postgis_version }}-scripts"
 postgresql_pg_hba_trust_hosts:
-  - "{{ application_server_one_private_ip }}"
-  - "{{ application_server_two_private_ip }}"
+  - "{{ application_server_one_private_ip }}/32"
+  - "{{ application_server_two_private_ip }}/32"
 postgresql_user_privileges:
   - name: "{{ tallyho_pgsql_user }}"
     db: "{{ tallyho_pgsql_db }}"
