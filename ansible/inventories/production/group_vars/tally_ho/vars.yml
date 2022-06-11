@@ -1,8 +1,16 @@
 ansible_ssh_user: "ubuntu"
 
+tally_ho_django_git_url: "https://github.com/onaio/tally-ho.git"
 tally_ho_django_system_user: "tallyho"
-
-
+pip_executable_location: "pip"
+tally_ho_django_python_packages:
+  - python3.8
+  - python3.8-dev
+  - python3-distutils
+  - python3-pip
+tally_ho_django_settings_template: "checkoutpath/tallyho/config/settings.py.j2"
+tally_ho_django_static_path: "{{ tally_ho_django_checkout_path}}/tally_ho/apps/tally/static/"
+tally_ho_django_media_path: "{{ tally_ho_django_checkout_path}}/tally_ho/apps/tally/media/"
 # nginx
 tally_ho_nginx_password: "HTTPSecret-please-change-me"
 tally_ho_nginx_access_logs:

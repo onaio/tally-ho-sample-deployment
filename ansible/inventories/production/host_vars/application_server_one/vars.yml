@@ -3,3 +3,9 @@
 ansible_host: "{{ application_server_one_private_ip }}"
 deployed_site_name: "{{ application_server_one_private_ip }}"
 server_hostname: "app1"
+tally_ho_django_init_commands:
+  - check --settings={{ tally_ho_django_app_settings_module }}
+  - migrate --settings={{ tally_ho_django_app_settings_module }}
+  - create_groups --settings={{ tally_ho_django_app_settings_module }}
+  - create_demo_users --settings={{ tally_ho_django_app_settings_module }}
+  - create_quarantine_checks --settings={{ tally_ho_django_app_settings_module }}
