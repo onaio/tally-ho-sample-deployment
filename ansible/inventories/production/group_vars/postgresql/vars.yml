@@ -53,7 +53,7 @@ postgresql_backup_system_group: "postgres"
 postgresql_backup_database: "{{ tallyho_pgsql_db }}"
 postgresql_backup_gpg_private_key: "{{ backup_gpg_path }}/{{ backup_gpg_key_id }}-priv.key"
 postgresql_backup_gpg_public_key: "{{ backup_gpg_path }}/{{ backup_gpg_key_id }}-pub.key"
-postgresql_backup_gpg_trust_file: "{{ backup_gpg_path }}/{{ backup_gpg_key_id }}.trust"
+postgresql_backup_gpg_trust_file: "{{ backup_gpg_path }}/{{ backup_gpg_key_id }}-ultimate.trust"
 postgresql_backup_gpg_key_id: "{{ backup_gpg_key_id }}"
 postgresql_backup_gpg_pass: "{{ backup_gpg_pass }}"
 postgresql_backup_profiles:
