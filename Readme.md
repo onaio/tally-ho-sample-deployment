@@ -63,3 +63,15 @@ Make sure to install the ansible-galaxy requirements in the [ansible/requirement
 ```
 ansible-galaxy install -r ansible/requirements.yml
 ```
+
+You can then run the following script to provision the sample deployment. Make sure to run it from the root directory, while in the ansible virtual environment.
+
+```
+./ansible-provision.sh
+```
+
+This will run three ansible playbooks to provision the sample deployment.
+
+    * [ansible/initial-setup.yml](ansible/initial-setup.yml) - This playbook installs all the dependencies required on all the servers.
+    *  [ansible/postgresql.yml](ansible/postgresql.yml) - This playbook provisions the PostgreSQL database server. It also creates the database and user to be used by the application servers. It also sets up the database backup using duplicity.
+    *  [ansible/tally-ho.yml](ansible/tally-ho.yml) - This playbook provisions the application servers. It sets up the tally django application, 
