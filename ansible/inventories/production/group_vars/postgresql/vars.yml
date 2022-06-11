@@ -44,6 +44,7 @@ tallyho_backup_gpg_pass: "secret"
 backup_gpg_path: "inventories/production/files/gpg"
 backup_gpg_key_id: B66789D5
 backup_gpg_pass: "{{ tallyho_backup_gpg_pass }}"
+backup_initial_run: false
 
 postgresql_backup_target_protocol: "file"
 postgresql_backup_target_path: "/backups/postgresql"
